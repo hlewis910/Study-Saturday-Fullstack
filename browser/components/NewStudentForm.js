@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import {addStudent} from './Main'
 
 export default class NewStudentForm extends Component {
   constructor(props) {
@@ -18,6 +19,9 @@ export default class NewStudentForm extends Component {
     });
   }
   handleSubmit(event) {
+    const { addStudent } = this.props
+    addStudent(this.state)
+    //this.props.addStudent(this.state)
     event.preventDefault();
     this.setState({
       firstName: '',
