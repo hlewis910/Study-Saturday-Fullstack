@@ -17,6 +17,22 @@ router.get('/', function(req, res, next) {
   );
 });
 
+
+router.post('/', async(req, res, next) => {
+  try {
+    const newStudent = await Student.create(req.body) 
+    const addTest = await Test.create({
+      subject: 'Chemistry',
+      grade: 100,
+      studentId: newStudent.id
+    })
+    const newStudentTest = await Student.findByPk(newStudent.id, {include: [{model: Test}]})
+  res.json(newStudentTest)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.put('/:id', function(req, res, next) {
   Student.update(req.body, {
     where: {
